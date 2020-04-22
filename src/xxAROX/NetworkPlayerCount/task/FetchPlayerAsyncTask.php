@@ -63,12 +63,12 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 */
 	public function onRun(){
 		$playercount = 0;
-		$config = (new Config(Main::getInstance()->getConfig()->get("waterdog-config-path", "/home/mcpe/Proxy/config.yml"), Config::YAML))->getAll();
+		$config = (new Config("/home/mcpe/Proxy/config.yml")->getAll(); //REPLACE THIS
 		$servers = $config["servers"];
 
 		foreach ($servers as $server) {
 			$ex = explode(":", $server["address"]);
-			$ip = str_replace("0.0.0.0", Main::getInstance()->getConfig()->get("server-address", "stimomc.de"), $ex[0]);
+			$ip = str_replace("0.0.0.0", "stimomc.de", $ex[0]); //REPLACE THIS
 			$port = $ex[1];
 			$result = $this->getQueryInfo($ip, $port);
 
