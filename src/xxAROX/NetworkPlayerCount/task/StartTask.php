@@ -1,6 +1,7 @@
 <?php
 /* Copyright (c) 2020 xxAROX. All rights reserved. */
 namespace xxAROX\NetworkPlayerCount\task;
+use pocketmine\Server;
 use pocketmine\scheduler\Task;
 use xxAROX\NetworkPlayerCount\Main;
 
@@ -17,7 +18,7 @@ class StartTask extends Task
 	public function onRun(int $currentTick){
 		if (Main::$isQueryDone) {
 			Main::$isQueryDone = FALSE;
-			Main::getInstance()->getServer()->getAsyncPool()->submitTask(new FetchPlayerAsyncTask());
+			Server::getInstance()->getAsyncPool()->submitTask(new FetchPlayerAsyncTask());
 		}
 	}
 }
