@@ -63,7 +63,7 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 */
 	public function onRun(){
 		$playercount = 0;
-		$config = (new Config("/home/mcpe/Proxy/config.yml")->getAll(); //REPLACE THIS
+		$config = (new Config("/home/mcpe/Proxy/config.yml"))->getAll(); //REPLACE THIS
 		$servers = $config["servers"];
 
 		foreach ($servers as $server) {
