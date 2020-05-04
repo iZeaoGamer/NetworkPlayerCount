@@ -30,12 +30,12 @@ class Main extends PluginBase{
 			$config->set("host", "stimomc.de");
 			$changed = true;
 		}
-		if (!$config->exists("ports")) {
-			$config->set("ports", [3565]);
+		if (!$config->exists("path")) {
+			$config->set("path", "/home/mcpe/Proxy/config.yml");
 			$changed = true;
 		}
 		if ($changed) $config->save();
-		$this->getScheduler()->scheduleRepeatingTask(new StartTask($this->getConfig()->get("host", "stimomc.de"), $this->getConfig()->get("ports", [3565])), 20 * 5);
+		$this->getScheduler()->scheduleRepeatingTask(new StartTask($this->getConfig()->get("host", "stimomc.de"), $this->getConfig()->get("path", "/home/mcpe/Proxy/config.yml")), 20 * 5);
 	}
 
 	/**

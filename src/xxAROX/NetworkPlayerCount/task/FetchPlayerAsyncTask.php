@@ -17,16 +17,16 @@ use xxAROX\NetworkPlayerCount\Main;
 class FetchPlayerAsyncTask extends AsyncTask
 {
 	protected $host;
-	protected $ports;
+	protected $path;
 
 	/**
-	 * FetchPlayerAsyncTask constructor
+	 * FetchPlayerAsyncTask constructor.
 	 * @param string $host
-	 * @param int[] $ports
+	 * @param string $path
 	 */
-	public function __construct(string $host, array $ports){
+	public function __construct(string $host, string $path){
 		$this->host = $host;
-		$this->ports = $ports;
+		$this->path = $path;
 	}
 
 	/**
@@ -76,9 +76,14 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 */
 	public function onRun(){
 		$playercount = 0;
+		$config = (new Config($this->path))->getAll();
+		$servers = $config["servers"];
 
-		foreach ($this->ports as $port) {
-			$result = $this->getQueryInfo($this->host, $port);
+		foreach ($servers as $server) {
+			$ex = explode(":", $server["address"]);
+			$ip = str_replace("0.0.0.0", $this->host, $ex[0]);
+			$port = $ex[1];
+			$result = $this->getQueryInfo($ip, $port);
 
 			if (!empty($result["motd"])) {
 				$playercount += $result["count"];
