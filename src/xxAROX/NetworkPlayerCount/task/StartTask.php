@@ -13,12 +13,24 @@ use xxAROX\NetworkPlayerCount\Main;
  * @date 21.04.2020 - 19:38
  * @project NetworkPlayerCount
  */
-class StartTask extends Task
-{
+class StartTask extends Task{
+	protected $host;
+	protected $ports;
+
+	/**
+	 * StartTask constructor
+	 * @param string $host
+	 * @param int[] $ports
+	 */
+	public function __construct(string $host, array $ports){
+		$this->host = $host;
+		$this->ports = $ports;
+	}
+
 	public function onRun(int $currentTick){
 		if (Main::$isQueryDone) {
 			Main::$isQueryDone = FALSE;
-			Server::getInstance()->getAsyncPool()->submitTask(new FetchPlayerAsyncTask());
+			Server::getInstance()->getAsyncPool()->submitTask(new FetchPlayerAsyncTask($this->host, $this->ports));
 		}
 	}
 }

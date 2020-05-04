@@ -16,6 +16,19 @@ use xxAROX\NetworkPlayerCount\Main;
  */
 class FetchPlayerAsyncTask extends AsyncTask
 {
+	protected $host;
+	protected $ports;
+
+	/**
+	 * FetchPlayerAsyncTask constructor
+	 * @param string $host
+	 * @param int[] $ports
+	 */
+	public function __construct(string $host, array $ports){
+		$this->host = $host;
+		$this->ports = $ports;
+	}
+
 	/**
 	 * Function getQueryInfo
 	 * @param string $host
@@ -63,14 +76,9 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 */
 	public function onRun(){
 		$playercount = 0;
-		$config = (new Config("/home/mcpe/Proxy/config.yml"))->getAll(); //REPLACE THIS
-		$servers = $config["servers"];
 
-		foreach ($servers as $server) {
-			$ex = explode(":", $server["address"]);
-			$ip = str_replace("0.0.0.0", "stimomc.de", $ex[0]); //REPLACE THIS
-			$port = $ex[1];
-			$result = $this->getQueryInfo($ip, $port);
+		foreach ($this->ports as $port) {
+			$result = $this->getQueryInfo($this->host, $port);
 
 			if (!empty($result["motd"])) {
 				$playercount += $result["count"];
