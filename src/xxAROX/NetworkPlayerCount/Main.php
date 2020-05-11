@@ -49,10 +49,19 @@ class Main extends PluginBase{
 	}
 
 	/**
-	 * Function getNetworkPlayers
+	 * Function getTotalNetworkPlayers
 	 * @return int
 	 */
-	public static function getNetworkPlayers(): int{
+	public static function getTotalNetworkPlayers(): int{
 		return self::$playerCount;
+	}
+
+	/**
+	 * Function getNetworkPlayers
+	 * @param int $port
+	 * @return int
+	 */
+	public static function getNetworkPlayers(int $port): int{
+		return self::$playerCount[$port] ?? 0;
 	}
 }
