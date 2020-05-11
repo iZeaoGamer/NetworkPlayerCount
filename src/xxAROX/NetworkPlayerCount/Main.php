@@ -14,7 +14,7 @@ use xxAROX\NetworkPlayerCount\task\StartTask;
  * @project NetworkPlayerCount
  */
 class Main extends PluginBase{
-	public static $playerCount = 0;
+	public static $playerCount = [];
 	public static $isQueryDone = TRUE;
 
 
@@ -49,10 +49,18 @@ class Main extends PluginBase{
 	}
 
 	/**
+	 * Function getTotalNetworkPlayers
+	 * @return int
+	 */
+	public static function getTotalNetworkPlayers(): int{
+		return self::$playerCount["all"];
+	}
+
+	/**
 	 * Function getNetworkPlayers
 	 * @return int
 	 */
-	public static function getNetworkPlayers(): int{
-		return self::$playerCount;
+	public static function getNetworkPlayers(string $bungeeServerName): int{
+		return self::$playerCount[$bungeeServerName] ?? 0;
 	}
 }
