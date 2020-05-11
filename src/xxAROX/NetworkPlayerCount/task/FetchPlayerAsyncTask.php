@@ -75,7 +75,7 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 * @return void
 	 */
 	public function onRun(){
-		$playercount = 0;
+		$playercount = ["all" => 0];
 		$config = (new Config($this->path))->getAll();
 		$servers = $config["servers"];
 
@@ -86,7 +86,8 @@ class FetchPlayerAsyncTask extends AsyncTask
 			$result = $this->getQueryInfo($ip, $port);
 
 			if (!empty($result["motd"])) {
-				$playercount += $result["count"];
+				$playercount["all"]  += $result["count"];
+				$playercount[$server] = $result["count"];
 			}
 		}
 		$this->setResult($playercount);
