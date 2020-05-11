@@ -75,13 +75,14 @@ class FetchPlayerAsyncTask extends AsyncTask
 	 * @return void
 	 */
 	public function onRun(){
-		$playercount = 0;
+		$playercount = ["all" => 0];
 
 		foreach ($this->ports as $port) {
 			$result = $this->getQueryInfo($this->host, $port);
 
 			if (!empty($result["motd"])) {
-				$playercount += $result["count"];
+				$playercount["all"] += $result["count"];
+				$playercount[$port]  = $result["count"];
 			}
 		}
 		$this->setResult($playercount);
