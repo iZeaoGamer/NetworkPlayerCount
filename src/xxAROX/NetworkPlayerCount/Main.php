@@ -35,7 +35,7 @@ class Main extends PluginBase{
 			$changed = true;
 		}
 		if ($changed) $config->save();
-		$this->getScheduler()->scheduleRepeatingTask(new StartTask($this->getConfig()->get("host", "stimomc.de"), $this->getConfig()->get("path", "/home/mcpe/Proxy/config.yml")), 20 * 5);
+		$this->getScheduler()->scheduleRepeatingTask(new StartTask($this->getConfig()->get("host", "splay.voidminerpe.ml"), $this->getConfig()->get("path", "/home/container/config.yml")), 20 * 5);
 	}
 
 	/**
